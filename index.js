@@ -3,21 +3,24 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-// Custom middleware function
-const setUser = (req, res, next) => {
-  req.user = 'Guest';
-  next();
-};
+app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Server is up and running!');
+app.get('/orders', (req, res) => {
+  res.send('Here is the list of all orders.');
 });
 
-// Route where middleware is applied
-app.get('/welcome', setUser, (req, res) => {
-  res.send(`<h1>Welcome, ${req.user}!</h1>`);
+app.post('/orders', (req, res) => {
+  res.send('A new order has been created.');
+});
+
+app.get('/users', (req, res) => {
+  res.send('Here is the list of all users.');
+});
+
+app.post('/users', (req, res) => {
+  res.send('A new user has been added.');
 });
 
 app.listen(PORT, () => {
-  console.log('Server is up and running on port 3000! Ready to handle requests.');
+  console.log(`Server running on port ${PORT}`);
 });
