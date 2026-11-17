@@ -37,9 +37,16 @@ app.post('/categories', (req, res) => {
   res.send('A new category has been created.');
 });
 
+app.get('/welcome/:username', (req, res) => {
+  const { username } = req.params;
+  const role = req.query.role || 'Guest';
+  res.send(`Welcome ${username}, your role is ${role}`);
+});
+
 app.all('*', (req, res) => {
   res.status(404).send('<h1>404 - Page Not Found</h1>');
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
