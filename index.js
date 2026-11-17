@@ -1,5 +1,11 @@
 const express = require('express');
 
+const ordersRouter = require('./routes/orders');
+const usersRouter = require('./routes/users');
+const productsRouter = require('./routes/products');
+const categoriesRouter = require('./routes/categories');
+const welcomeRouter = require('./routes/welcome');
+
 const app = express();
 const PORT = 4000;
 
@@ -10,48 +16,15 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/orders', (req, res) => {
-  res.send('Here is the list of all orders.');
-});
-
-app.post('/orders', (req, res) => {
-  res.send('A new order has been created.');
-});
-
-app.get('/users', (req, res) => {
-  res.send('Here is the list of all users.');
-});
-
-app.post('/users', (req, res) => {
-  res.send('A new user has been added.');
-});
-
-app.get('/products', (req, res) => {
-  res.send('Here is the list of all products.');
-});
-
-app.post('/products', (req, res) => {
-  res.send('A new product has been added.');
-});
-
-app.get('/categories', (req, res) => {
-  res.send('Here is the list of all categories.');
-});
-
-app.post('/categories', (req, res) => {
-  res.send('A new category has been created.');
-});
-
-app.get('/welcome/:username', (req, res) => {
-  const { username } = req.params;
-  const role = req.query.role || 'Guest';
-  res.send(`Welcome ${username}, your role is ${role}`);
-});
+app.use('/orders', ordersRouter);
+app.use('/users', usersRouter);
+app.use('/products', productsRouter);
+app.use('/categories', categoriesRouter);
+app.use('/welcome', welcomeRouter);
 
 app.all('*', (req, res) => {
   res.status(404).send('<h1>404 - Page Not Found</h1>');
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
