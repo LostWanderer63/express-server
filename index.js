@@ -5,6 +5,7 @@ const usersRouter = require('./routes/users');
 const productsRouter = require('./routes/products');
 const categoriesRouter = require('./routes/categories');
 const welcomeRouter = require('./routes/welcome');
+const booksRouter = require('./routes/books');
 
 const app = express();
 const PORT = 4000;
@@ -21,6 +22,7 @@ app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/categories', categoriesRouter);
 app.use('/welcome', welcomeRouter);
+app.use('/books', booksRouter);
 
 app.all('*', (req, res) => {
   res.status(404).send('<h1>404 - Page Not Found</h1>');
